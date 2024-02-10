@@ -34,6 +34,15 @@ $endfor$
 
 \renewcommand\labelitemi{---}
 
+\usepackage{float}
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][2] {
+    \expandafter\origfigure\expandafter[H]
+} {
+    \endorigfigure
+}
+
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{caption}
@@ -167,7 +176,7 @@ $endif$
 $if(monofont)$
   \setmonofont[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]{$monofont$}
 $else$
-  \setmonofont{Courier New}
+  \setmonofont{FiraCode Nerd Font}
 $endif$
 $for(fontfamilies)$
   \newfontfamily{$fontfamilies.name$}[$for(fontfamilies.options)$$fontfamilies.options$$sep$,$endfor$]{$fontfamilies.font$}
@@ -237,13 +246,16 @@ $endif$
 }{}
 
 \usepackage{indentfirst}
+
 \setlength{\parindent}{1.25cm}
 
 \usepackage{titlesec}
 \titlespacing*{\subsection}{\parindent}{1ex}{1em}
 
-$if(verbatim-in-note)$
+\usepackage{verbatim}
 \usepackage{fancyvrb}
+
+$if(verbatim-in-note)$
 $endif$
 \usepackage{xcolor}
 $if(geometry)$
@@ -260,10 +272,11 @@ $if(listings)$
 \usepackage{listings}
 \newcommand{\passthrough}[1]{#1}
 \lstset{defaultdialect=[5.3]Lua}
+\verbatimfont{comicsans}
 \lstset{defaultdialect=[x86masm]Assembler}
 $endif$
 $if(lhs)$
-\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+\lstnewenvironment{code}{\lstset{language=Typescript,basicstyle=\small\ttfamily}}{}
 $endif$
 $if(highlighting-macros)$
 $highlighting-macros$
@@ -519,6 +532,7 @@ $endif$
 
 \usepackage{ragged2e}
 \justifying
+
 
 \begin{document}
 
